@@ -1,0 +1,222 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOwHcZnvNAXaDOcJ9M8CSFu",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/divyabansal91/machine-learning/blob/main/machine%20learning\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "cKismRwujr9r"
+      },
+      "outputs": [],
+      "source": [
+        "# normalization---->"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd"
+      ],
+      "metadata": {
+        "id": "Dcuugvv4jvxl"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df=pd.read_csv(\"/content/toyota - toyota.csv\")\n",
+        "df.head(2)"
+      ],
+      "metadata": {
+        "id": "XhBamL6YjvuM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df['model']=df['model'].map({'Camry':1,'Corolla':2,'Yaris':3})\n",
+        "df['mileage']=df['mileage'].map({'24kmpl':1,'27kmpl':2,'32kmpl':3})"
+      ],
+      "metadata": {
+        "id": "qeNn7pIijvrA"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.isnull().sum()"
+      ],
+      "metadata": {
+        "id": "ronbNHfCjvoi"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df=df.drop(columns=['fuelType'])"
+      ],
+      "metadata": {
+        "id": "WGRPxyYdj6DL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df=df.drop(columns=['transmission'])\n"
+      ],
+      "metadata": {
+        "id": "xPUNkhPRj5_w"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.head(2)"
+      ],
+      "metadata": {
+        "id": "QpzhLDq7j59V"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x=df.drop(columns=['fuelType'])\n",
+        "y=df['fuelType']"
+      ],
+      "metadata": {
+        "id": "fX6u1aY2j56X"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.model_selection import train_test_split"
+      ],
+      "metadata": {
+        "id": "lo91AYktj532"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,\n",
+        "                                               random_state=42)"
+      ],
+      "metadata": {
+        "id": "rHt_zAW0kGTL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "np.round(x_train.describe(),2)"
+      ],
+      "metadata": {
+        "id": "QjKtZHz_kGPy"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.preprocessing import MinMaxScaler"
+      ],
+      "metadata": {
+        "id": "rfiLPC5dkGNE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "mn=MinMaxScaler"
+      ],
+      "metadata": {
+        "id": "-FhLgIDekMFI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x_train_mn=mn.fit_transform(x_train)"
+      ],
+      "metadata": {
+        "id": "H53ihUgckMBu"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "x_train_new=pd.DataFrame(x_train_mn,columns=x_train.columns)"
+      ],
+      "metadata": {
+        "id": "oSMZJ22YkL_P"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "np.round(x_train_new.describe(),2)"
+      ],
+      "metadata": {
+        "id": "iy4qUGB2kQ2R"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
